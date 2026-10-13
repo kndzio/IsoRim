@@ -7,7 +7,7 @@ _RimWorld in 3D, through an isometric camera. Visual only: safe to add to or rem
 existing save._
 
 Requires Harmony (load it above IsoRim). Built for RimWorld 1.5.
-
+All 3d models are in a .7z file due to git's uploading being a pain for large amounts of files.
 
 CONTROLS
 --------
