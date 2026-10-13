@@ -1,0 +1,504 @@
+ISORIM - developer notes (version 1.0, built for RimWorld 1.5)
+==============================================
+
+How to build the mod, how it works, and how to change or add models. For players, see
+README.txt. To make the folder that goes on the Steam Workshop: run build.bat, then
+make_release.bat; upload ../IsoRim_Release from the game's mod uploader.
+
+
+1. BUILD IT (once, and again after any code change)
+----------------------------------------------------
+  a. Install the free ".NET SDK" from https://dotnet.microsoft.com/download
+  b. Double-click build.bat (Windows) or run build.sh (macOS/Linux).
+  c. Success leaves IsoRim.dll in the Assemblies folder. Without that file the mod does
+     nothing at all, however it is enabled.
+     If it says BUILD FAILED, the window lists the errors.
+
+
+2. INSTALL IT
+-------------
+  a. Subscribe to the "Harmony" mod on the Steam Workshop.
+  b. Put this whole IsoRim folder in RimWorld's Mods folder.
+  c. In the game's Mods screen enable Harmony and IsoRim, with Harmony above IsoRim.
+
+
+3. USE IT
+---------
+  0         switch the 3D view on and off (the number row, not the keypad)
+  9         swap between the isometric view and the straight-on view (north up)
+  Q and E   turn the camera left / right, smoothly: 45 degrees a step, or 90 if
+            "Turn in 45° steps" is unticked in the options
+            (while something is picked to build, Q and E turn that instead, as usual)
+  [ and ]   lower / raise the camera angle
+  (no key)  show roofs on and off; set a key for it if you like
+  Bottom right corner of the screen, next to the game's own buttons: a cube button
+  for the 3D view and, while it is on, a house button for the roofs.
+  Hold the pointer near a wall to lower the walls round it and see behind them.
+  All the keys can be changed in Options > Keyboard configuration > IsoRim.
+  Options > Mod options > IsoRim   four tabs: View and camera, Colour and light, Ground,
+                                  water and roofs, and What is 3D. The header there has a
+                                  button that turns the 3D view on, in case the key does
+                                  nothing, and one that puts every option back to default.
+
+  It is visual only and does not touch saves.
+
+
+4. WHAT IT DOES
+---------------
+  - Tilts the map camera and fixes mouse clicks and off-screen culling to match.
+
+  - Isometric view (the default; key 9 swaps to the straight-on view and back): the camera
+    is turned 45 degrees and lowered to the true isometric angle, so the map's grid runs
+    diagonally and two sides of every wall and building show. Moving the camera with the
+    keys, the screen edges or by dragging follows the screen, not the map; upright sprites
+    turn to face the camera; dragging a selection box picks what is inside the box; name
+    labels sit under their colonists.
+
+  - Q and E swing the camera round the middle of the screen, an eighth of a turn at a time
+    (or a quarter, as an option), easing in and out, so a base can be seen from every
+    side. Turning the camera never changes the light: the sun stays put in the world.
+    It rises in the east, stands in the south at noon and sets in the west, moving on to
+    a new place in the sky a few times a game day (and a fixed moonlight at night). When
+    it moves, walls, furniture and roofs are relit a few blocks a frame, the part on
+    screen first. "Sun moves through the day" in the options keeps it still instead.
+
+  - Walls and barricades are drawn as 3D blocks with the mod's own textures (bricks,
+    planks, metal, smooth stone), tinted by what they are built from, with dark outlines.
+
+  - Walls lower near the pointer: every built wall and door within a few cells of the
+    pointer (the "Reach round the pointer" slider) drops to half height, so what is behind
+    can be seen and clicked. Move away and they stand up again. The height left is a
+    slider too. Natural rock is never lowered. The old behaviour, where every
+    wall in front of a roofed room is lowered all the time, is still there as a tick box
+    ("Cut down walls in front of every room"), off by default.
+
+  - Fences are 3D: a post in every cell with two rails reaching to each neighbouring fence,
+    gate or wall. A fence gate is two posts with a braced leaf that swings open.
+
+  - Sandbags are four courses of heavy, squared-off bags stacked like bricks, flattened by
+    the weight above, pinched at the tied ends, stepping in as they rise, in the colour of
+    what they are made from. A row turns to follow its own line.
+
+  - Wall torches and wall lamps are 3D and hang on the face of their wall, lower on a wall
+    that is cut down.
+
+  - Natural rock is drawn the same way but with broken edges: each exposed face leans
+    back, kinks part of the way up and meets a lowered, uneven rim, so a mountain reads as
+    a cliff and not as a stack of cubes. Ore-bearing rock has its own texture.
+
+  - Doors are 3D: two leaves as tall as the walls that slide apart into the walls on either
+    side, under a beam that carries the wall line across the doorway. Both leaves are lit
+    the same.
+
+  - Loose rock chunks are 3D boulders. There are six shapes, each chunk keeps its own shape,
+    turn and size, and they take the colour of the stone. Steel slag has its own two shapes.
+
+  - Weapons are 3D models, both lying on the ground and in a colonist's hands: 21 firearm,
+    bow and grenade models and 9 melee models covering the base game, with a stand-in rifle
+    or sword for any other weapon from DLC or mods. Blades take the colour of their metal.
+
+  - Clothing lying on the ground is a 3D model by kind: folded garment, hat, helmet, body
+    armour, belt or pack. Clothing a colonist is wearing is part of the colonist's sprite
+    and is not modelled (see the known gaps).
+
+  - People are 3D figures in the game's own proportions: a big round head on a simple body.
+    Everything the game makes up for a person is read from them, so each figure matches its
+    colonist, raider or visitor:
+      build      the five body types, with children and babies smaller
+      head       narrow, average or wide, in the person's skin colour
+      hair       the person's hair colour, in the nearest of eight cuts (short, medium,
+                 long, afro, mohawk, ponytail, bun, spiky) or bald
+      beard      full or goatee, in the hair colour
+      clothes    shirt and trousers colour the upper and lower body; a jacket, or a long
+                 coat for dusters, parkas and robes, goes over them; armour adds shoulder
+                 plates; all in the colour of the actual garment
+      headgear   cap, brimmed hat, tall hat, hood, open helmet, or a sealed helmet with a
+                 visor, in the colour of the actual item
+    A figure turns to face the way it is really walking and waddles in step, lies on its
+    back when asleep or downed, and shows only its head above the covers in a bed. A weapon
+    is carried in 3D at its side. Untick "Colonists and other people" in the options to get the
+    upright sprites back.
+
+  - Trees are 3D models that grow with the tree and lose their leaves in winter. Each kind
+    is built after the game's own tree: broad oaks, red maples, tall teak, white-barked
+    birch with dark bands, columns of poplar and cypress, tiered pines, willows with hanging
+    curtains, palms with fronds and coconuts, cecropia, cocoa with pods, the flat-topped
+    drago, anima, gauranlen, ribbed saguaro and jointed bamboo. Every tree has a real
+    skeleton of trunk, boughs and twigs, so it is still a tree when bare, and a crown in
+    three tones of its leaf colour. Each tree keeps its own turn and size. Trees have a
+    much finer dark outline than buildings, and it no longer thickens as the tree grows.
+
+  - Soft shading on the ground under everything 3D: walls, rock, furniture, boulders,
+    items, trees and animals. It is darkest at the foot of the thing and fades out a short
+    way, day and night.
+
+  - Trees cast shadows: the outline of the crown plus a bar for the trunk, drawn with the
+    game's own shadow system, so they swing round and stretch through the day, fade at night
+    and match the shadows of walls and colonists. A bare winter tree casts only its trunk.
+    "Tree shadow length" in the options sets how far they reach.
+
+  - Animals are 3D models in the same faceted, outlined style: 60 of the base game's
+    animals, from chickens and squirrels to muffalo, elephants, thrumbos and the three
+    insects. They are drawn the way the game draws them, not the way the real animal
+    looks: a big head, big eyes, a round body and short stout legs. A model turns to face the way the animal is really walking (a sprite only
+    has four facings), its legs swing in step with the ground it covers, young animals are
+    smaller, a sleeping animal settles onto its belly and a downed or dead one lies on its
+    side. Animals from DLC and mods, and mechanoids, keep their upright sprites.
+
+  - Grass is a soft, fluffy tuft: three rounded puffs of leaf and a broad arching blade or
+    two, a little less saturated than before and drawn without an outline. Kept to about
+    fifty triangles each, as a meadow holds thousands.
+
+  - Wild plants and crops are small 3D models in the same faceted, outlined style:
+    grass, tall grass, bushes, berry bushes, brambles, moss, dandelions, astragalus,
+    daylilies, roses, agave, cactus, healroot, potatoes, strawberries, rice, haygrass, corn,
+    cotton, hops, smokeleaf, psychoid, devilstrand and cave mushrooms. Any other plant that
+    is not a tree (DLC, mods) gets a stand-in clump coloured from its own sprite.
+    Each plant is scattered off the middle of its cell and keeps its own turn and size.
+
+  - Natural ground is repainted to match: packed dirt, sand, gravel, mud, ice, and rough,
+    rough-hewn and smooth stone, each with broad facets and finer detail inside them (small
+    facets, pebbles, grit, hairline cracks). Only the picture is swapped, and only while
+    the 3D view is on.
+
+  - Soil is drawn as grass: soft, muted green tones with tufts painted as fluffy, leafy
+    clumps with a few blade tips round the edge, the same from every side the camera can
+    turn to. A noise map lets bare
+    earth show through in ragged patches of every size (about a sixth of the area). Rich
+    soil is a darker, lusher grass with less earth, so good farmland still stands out. It is
+    only a picture: the ground is still soil to the game. Untick "Soil is drawn as grass" in
+    the options to get plain brown earth back.
+
+  - Marshy soil is wet ground in the same style: dark mud and dull green grass in patches,
+    flat-coloured pools of standing water with a darker rim, and sparse tufts of reed.
+    Moss is a fine, even green of small rosettes.
+
+  - Colour looks over the whole 3D view: Gentle (the mod's usual, slightly muted look),
+    Warm afternoon, Cool morning, Filmic, Bleak rim, Vivid, Autumn, Moonlight, Toxic,
+    Sepia and Noir, with a strength slider, or Custom with colour and brightness sliders.
+    The options show each look on a row of sample colours. They work out of the box by
+    blending a few see-through sheets over the picture. For exact grading with lookup
+    tables (LUTs), see "Exact colour grading" below. The interface is not affected.
+
+  - Roofs: the house button in the bottom right corner (or a key) shows every roof at
+    once as a solid lid at the top of the walls. A built roof rises from every edge to a ridge, textured in courses of slates,
+    terracotta tiles, thatch or corrugated tin (picked in the options), lit by the sun,
+    runs out over the walls that hold it with a short overhang and a fascia board, and
+    dims with the daylight; a natural rock roof over a cave is a stone lid. Press the
+    button again to see inside. Building or removing a roof updates it straight away.
+
+  - Every buildable thing in the base game now has a hand-made model (new in this version
+    unless listed below): hospital beds, bedrolls, animal beds; billiards, chess and poker
+    tables, hoopstone ring, horseshoes pin; tube, flatscreen and megascreen televisions;
+    telescope, tool cabinet, vitals monitor; small, large and grand sculptures (three
+    designs each, in the sculpture's own material); coloured standing lamps; the nutrient
+    paste dispenser and hoppers; biofuel refinery, fabrication bench, crematorium, hi-tech
+    research bench, multi-analyzer; deep drill, ground-penetrating and long-range mineral
+    scanners; comms console, orbital trade beacon, moisture pump; cryptosleep caskets,
+    transport pods and pod launcher; the geothermal, watermill and chemfuel generators,
+    power switch, cooler, vent and passive cooler; mini-turret, autocannon, sniper turret
+    and mortar, each with a 3D gun that turns to aim; spike traps, every kind of IED and
+    the firefoam popper; and the ship's beams, computer core, reactor, engines and sensor.
+    Each is built for the footprint it has in the game and stretched to fit if a thing's
+    real size differs, so mod-changed sizes still fit.
+
+  - Items lying on the ground are models too: stacked steel, plasteel, uranium and gold
+    bars, silver coins, jade, log piles, component crates, fuel cans, the three medicines,
+    every meal, pemmican, kibble, potatoes, rice, corn, berries, fungus, agave, hops, meat,
+    eggs, milk, insect jelly, chocolate, beer, hay, cloth, leather, wool, stone blocks, the
+    drugs, mortar shells, neurotrainers, techprints, body parts and artifacts.
+
+  - Ship chunks, mechanoid slag, and the wrecks and junk other content scatters over maps
+    (rusted cars and car frames, jeeps, trucks, tanks, APCs, war-walker remains, barrels,
+    crates, pipelines, engine blocks, dead machinery, lampposts, cannon barrels and
+    tripods, concrete barriers, razor wire, scrap heaps) have models. They are matched by
+    name, so the wrecks from DLC and mods are picked up whatever they are called exactly.
+
+  - Furniture and machines with hand-made, textured 3D models: beds (pillow under the
+    sleeper's head), tables, chairs, dresser, lamps, plant pot, column, battery, heater,
+    wood-fired generator, a solar array of six framed panels on a braced stand, and a wind
+    turbine with a mast and three blades that turn faster the more power it makes.
+    New in this version: the work benches (butcher table, hand and electric tailoring,
+    fueled and electric smithy, machining table, fueled and electric stove, stonecutter,
+    art bench, drug lab, brewery, electric smelter and the simple research bench),
+    each with its own tools on top, shelves in both sizes, the hydroponics basin, the sun
+    lamp, the sarcophagus and the fermenting barrel.
+
+  - The campfire is a ring of stones round a stack of logs with a real fire on it: three
+    tongues of flame and a bright heart that flicker, each to its own beat, and puffs of
+    grey smoke that rise, swell, lean with the wind and thin away. A fire that has run out
+    of fuel has neither.
+
+  - A steam geyser is a cracked mound of pale rock round a dark vent, with a tall column of
+    white steam puffs. A geothermal generator built on it caps the steam.
+
+  - Graves are 3D: an open pit edged with earth until someone is buried, then a mound with
+    a headstone.
+
+  - Built floors are repainted in the same style: wood boards, stone tiles, flagstones,
+    carpet, concrete, paving, metal plates (steel, silver, gold) and sterile tile.
+
+  - Water is drawn in the same hand as the pools in the marsh ground: flat dark teal, a
+    little lighter near the bank and darker out in the deep, a thin pale line just inside
+    the bank, the ground darkening toward the water, inside corners of the bank curved,
+    faint streaks along the current of rivers, and little stars of light winking on it.
+
+  - Marshy ground now uses the mod's own marsh picture (pools, mud and reeds). It was
+    being treated as water before, so the picture was never used.
+
+  - Everything else becomes 3D automatically: its own game sprite is raised to become the
+    top, with sides dropped from the sprite's outline. Items on a shelf sit on top of it.
+
+  - Animals and people that have no model (see the known gaps) stand upright as sprites and
+    face the camera. A potted plant grows from the rim of its pot.
+
+  - Flames, charge bars, turret heads and status icons (no power, forbidden ...) are moved
+    up to sit on top of the raised building they belong to.
+
+  - Night and indoor darkness still applies to raised things. Unexplored areas are capped
+    at wall height.
+
+
+5. KNOWN GAPS
+-------------
+  - The 3D people are simple: no arms or legs, as in the game's own art, and no attack,
+    work or carrying animations. A figure replaces everything the game draws on the
+    person's sprite, so wounds, tattoos, body modifications such as horns and tails, and
+    whatever they are hauling in their arms do not show. Clothes show as colours and a few
+    shapes, not as each garment's own cut, and belts and packs are left out.
+  - Hair, beards and hats are matched to the nearest shape by their names. A style with an
+    unusual name falls back to short hair, a full beard or a cap; say which ones look wrong.
+  - Only baseline humans (and their xenotypes) get figures. Alien races from mods and
+    mechanoids keep their upright sprites, and invisible people stay invisible.
+  - People, animals, flames and smoke are relit in eight steps as they turn, and each
+    differently coloured figure is its own small mesh. A very large crowd of people in
+    many different clothes costs some memory; untick "Colonists and other people" if it drags.
+  - Q and E also turn a building that is being placed. The mod leaves them alone while
+    something is picked to build, so put the building tool away to turn the camera. If
+    another mod already uses Q and E, rebind the two camera keys.
+  - The lowered walls follow the pointer in steps of two cells, and the patch of map they
+    are in is redrawn each time, so on a slow machine sweeping the pointer along a very
+    long wall may stutter slightly. Untick "Lower walls near the pointer" if so.
+  - Smoke and steam are a handful of solid puffs, not a soft particle cloud, and they stand
+    still while the game is paused.
+  - A 3D animal replaces everything the game draws on the animal's sprite: wounds, pack
+    saddlebags and a hauled item in its mouth do not show. Its walk is a plain swing of
+    straight legs, with no knees, and it does not turn its head or play attack animations.
+    Every animal of a kind looks the same (no separate male and female), and a rotting
+    carcass looks as fresh as a new one.
+  - The grass picture repeats every so many cells, as all ground textures do, so the same
+    patches of earth come round again across a big meadow.
+  - A weapon in hand is drawn level at hand height. It does not follow the swing or recoil
+    animation of the sprite it replaces.
+  - 3D trees and plants do not sway in the wind, and bushes do not go bare in winter.
+  - A tree's shadow is a simplified shape, not an exact cast of the model, and like every
+    shadow in the game it lies on the ground only: it does not fall across walls, and grass
+    tufts standing inside it stay lit.
+  - Without the shader bundle, the colour looks are blended sheets, not true lookup tables:
+    taking colour out also softens contrast a little, "Vivid" cannot add colour, only
+    contrast, and the darkest tones lift slightly at night. The LUT versions do not have
+    these limits.
+  - The water is drawn over the game's own water, so the game's moving water shader and
+    its reflections no longer show while the 3D view is on (untick "Stylised water" to get
+    them back). The current streaks and sparkles stand still while the game is paused.
+  - Roofs are all or nothing; there is no peeking into one room with the roofs on.
+  - A turret's gun model turns to aim but does not recoil. Wind turbine blades turn;
+    the watermill's wheel does not yet.
+  - Wrecks and junk from DLC and mods are matched by name. One with an unusual name
+    falls back to being raised from its sprite; say which, and it can be added.
+  - A model built for one footprint is stretched to fit a thing of another size, which
+    can look squashed for things whose size is very different from the base game's.
+  - Grass is one tuft per plant, so a meadow is less dense than the game's own grass. On a
+    large, heavily planted map the 3D grass also uses a good deal of memory and makes the
+    map take longer to redraw when the view is switched; untick it in the options if so.
+  - The floor tiles are drawn for one copy of a texture covering 16 cells each way. If
+    tiles do not line up with the map's cells in the game, that number is wrong: say so.
+  - With "Cut down walls in front of every room" ticked, which walls are lowered is decided by
+    roofs, so a room with no roof keeps all its walls.
+  - Floors from DLC and other mods, and burned floors, keep the game's textures.
+  - How many cells one copy of a ground texture covers is decided by the game. If the ground
+    detail looks too coarse or too fine, say so and the textures can be redrawn to suit.
+  - Doors more than one cell wide keep the game's flat drawing.
+  - Anything still drawn as an upright sprite (modded races, animals without a model) has
+    only the game's four facings and does not know the camera has turned, so seen from
+    behind it can appear to walk backwards.
+  - Things raised from their own sprite keep that sprite as a lid, painted for a camera
+    looking north; from the other three sides its painted front is on the wrong side.
+  - Orders dragged out with the mouse (mining, zones, building rows) follow the map's grid,
+    so in the isometric view they are diamonds on screen, as in other isometric games.
+  - Things without a hand-made model keep their top-down sprite as a lid, which in the
+    isometric view lies diagonally like everything else.
+  - A wind turbine's blades are a single rotor model turned by the mod; on a broken or
+    unpowered turbine they simply stop.
+  - Things from DLC and mods without a hand-made model use their raised sprite. Many game
+    sprites are painted as if seen slightly from the front, so a tall thing can look like a
+    low slab until it gets a model.
+  - Ideology wall styles all use the standard wall textures.
+  - At night, selection brackets and some glow effects may look dimmer than usual.
+  - Other mods that change pawn drawing or the camera have not been tested with it.
+
+
+6. IF SOMETHING LOOKS WRONG
+---------------------------
+  Switch the features off one at a time in the mod options to find which one causes it.
+  Turn on the game's development mode to have IsoRim write what it found to the log, then
+  look for the lines containing "IsoRim" or "Exception" in:
+    %USERPROFILE%\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Player.log
+  On startup the log should contain "[IsoRim] Code loaded.", "[IsoRim] N things have a
+  hand-made 3D model." (well over a hundred) and "[IsoRim] Drawing redirected in N methods." Any "[IsoRim] ... was
+  not found" line names a feature that switched itself off because the game's code differs
+  from what was expected.
+
+
+7. EXACT COLOUR GRADING (OPTIONAL)
+----------------------------------
+  The colour looks work without this. For exact grading with lookup tables:
+  a. Find the Unity version your game uses: the first lines of Player.log say
+     "Initialize engine version: 2022.3.xx". Install that version of Unity (free).
+  b. Open the ShaderSource folder of this mod as a Unity project.
+  c. Choose IsoRim > Build shader bundles from the menu.
+  d. Copy the files it writes (isorimshaders, isorimshaders_mac, isorimshaders_linux) from
+     ShaderSource/ShaderBundles into this mod's Shaders folder, and restart the game.
+  The log then says "[IsoRim] Exact colour grading (LUT) is available." and the options
+  get a "Use lookup tables" tick box and a table picker. Every look has a LUT file in the
+  LUTs folder (written by tools/make_luts.py), plus Neutral, Pastel and Cinematic. Any
+  1024 x 32 LUT strip (32 slices of 32 x 32; blue picks the slice, red runs across, green
+  runs up) put in LUTs can be picked by its file name.
+
+
+8. CHANGING HOW ONE THING LOOKS
+-------------------------------
+  A thing only needs an entry in Defs/Models.xml to change how it is drawn. No rebuild is
+  needed, only a game restart.
+
+    <IsoRim.ModelDef>
+      <defName>R3D_MyThing</defName>
+      <thingDef>ThingDefNameHere</thingDef>
+      <model>Models/my_thing.obj</model>      use a hand-made model
+    </IsoRim.ModelDef>
+
+  Instead of <model>, use <height>0.3</height> to set the height of the automatic shape,
+  or <flat>true</flat> to leave the thing as a flat sprite. <builtFor>(3, 2)</builtFor>
+  says which footprint the model was made for, so it is stretched to fit the thing.
+  <match><li>Wreck</li></match> in place of <thingDef> covers every building or item whose
+  name contains one of the words. A turret can have <topModel> (its turning gun, muzzle
+  toward +X in Blender) and <topHeight> (the height of its pivot).
+  Use <thingCategory> in place of <thingDef> to cover every thing in a category, and
+  <models> with several <li> lines to give a thing a choice of shapes. The comment at the
+  top of Defs/Models.xml lists every option.
+
+  Making a model (no Unity needed):
+  a. Model in Blender. One Blender unit is one map cell. Centre the model on the origin,
+     sitting on the ground, with the thing's north side toward +Y in Blender.
+     Keep it low: a few hundred triangles at most.
+  b. Give each part a material. Its Base Color is used, and if the Base Color has an image
+     texture from this mod's Textures folder, that texture is used too (UV-unwrap the part;
+     textures repeat, one repeat per Blender unit matches the supplied models).
+     Name a material starting with "stuff" (stuff, stuff_dark ...) to have it take the
+     colour of what the thing is built from.
+  c. File > Export > Wavefront (.obj), default settings, into the Models folder.
+
+  The supplied models and textures are generated by tools/make_models.py (with
+  tools/models_more.py, which holds the furniture, machines, items and wrecks added in
+  version 13) and tools/make_textures.py (Python 3; the textures need numpy and Pillow).
+  Edit the shapes or the drawing code there and run them to rewrite Models/, Textures/
+  and Defs/Models.xml. tools/make_luts.py writes the LUT files, and
+  tools/preview_models.py OUTDIR draws contact sheets of the models for checking them
+  without starting the game.
+  The wall textures are plain PNG files in Textures/IsoRim/Walls and can also be repainted
+  by hand: keep them light grey, and keep the left/right and top/bottom edges matching.
+
+
+FOLDERS
+-------
+  About/       mod description
+  Assemblies/  the built IsoRim.dll goes here
+  Defs/        key bindings and the per-thing settings
+  Models/      the hand-made models
+  Textures/    the mod's own wall, ground, model and button textures
+  LUTs/        colour lookup tables for exact grading
+  Shaders/     put the built shader bundles here (see section 7)
+  ShaderSource/ a small Unity project that builds the shader bundle
+  Source/      the C# code
+  tools/       the model, texture and LUT generators, and a model previewer
+
+PERFORMANCE NOTES
+-----------------
+- People and animals drawn as 3D models skip the game's own pawn rendering entirely
+  (RenderPawnAt prefix returns false, ParallelPreRenderPawnAt is skipped), so the
+  sprite pipeline costs nothing for them. Portraits still use the game's renderer.
+- Each person's look is merged into two cached meshes (body, head) keyed by facing,
+  posture and light step, so a figure is two draw calls instead of ~16.
+- Walls and trees live in their own section layers (SectionLayer_IsoRimWalls/Trees),
+  so see-through cutaways only rebuild those, never the full things layer.
+- Section rebuilds are time-budgeted (MapSections.Process, 4 ms per frame).
+- Water sparkles use a cached water grid and only walk the visible cells.
+- About/ModIcon.png is made by tools/make_icon.py.
+
+ITEMS, WEAPONS AND ARMOUR
+-------------------------
+- With "Items and weapons use the game's art" on (default), every item except chunks is made
+  solid from its own sprite (Forms.Compute -> Form3D.Extruded, thickness Forms.ItemThickness).
+  The hand-made item models are only used with that setting off.
+- Held weapons are thin slabs built from the weapon sprite (SpriteSolids.cs): the sprite on both
+  faces, sides coloured from its outline (Extruder.MaskOf), stood on edge and pointed at the aim.
+- Worn armour: person_<build>_armor_<kind> (flakvest, flakjacket, flakpants, plate, marine,
+  cataphract, recon) and person_hat_<kind> (combat, marine_helm, cataphract_helm, recon_helm),
+  chosen by defName in People.ArmourKind/HatKind. Clothing not made from stuff takes the average
+  colour of its own sprite (People.ApparelColour).
+
+FLICKER (Z-FIGHTING) RULES
+--------------------------
+- Shape.separate() in make_models.py lifts any face that shares a plane with a face of another
+  material by 0.003, so no two overlapping faces sit at the same depth.
+- Textured faces stand ModelBaker.FaceLift off their plain solid copy (different shaders do not
+  always produce identical depth).
+- The outline material has _ZBias 1. Dynamic meshes are retired and destroyed two frames later.
+
+LIGHTING (SMOOTH SUN)
+---------------------
+- The sun moves continuously with the hour (R3DMaterials.SetSunHour, called every frame).
+- Static geometry is never re-baked for light. Every face goes into one of 26 direction groups
+  (R3DMaterials.BinOf); each group has its own material (Lit for plain vertex colours,
+  LitTexture for textures) whose _Color is set from the sun. curve 1 = wall/rock shading.
+- Moving things (people, animals, doors) still bake shading into cached meshes, rebuilt once per
+  game hour (R3DMaterials.LightStep / Shade, which use the sun as it was at the step).
+- Roof textures use the same groups; their brightness is applied in the roof DrawLayer.
+
+GHOSTS, WORK, DAMAGE
+--------------------
+- Ghosts.cs: blueprints (blue) and frames (sawdust) are baked as see-through ghosts
+  (ModelBaker.Ghost); the placement preview is drawn every frame (GhostDrawer.DrawGhostThing postfix).
+- Work.cs (class WorkAnimations): job -> tool and motion (chop/sweep/bob); tools are Models/tool_*.obj.
+- SectionLayer_IsoRimDamage (Layers.cs): marks from Textures/IsoRim/Damage/Marks.png (tools/make_damage.py)
+  on model faces (ModelBaker.DamageMarks), wall caps/sides and extruded tops. The game's flat
+  damage layer is hidden while it is on.
+- Walls/trees layers are queued for redraw from Thing.SpawnSetup/DeSpawn (deconstruct, mine, cut).
+
+POINTER AND FOG (Interaction.cs)
+--------------------------------
+- Drag box drawn on the ground (DragBoxOnGUI skipped in 3D); it selects the same world rectangle.
+- Selection brackets drawn on the ground round the footprint (SelectionDrawer.DrawSelectionBracketFor).
+- GenUI.ThingsUnderMouse postfix: a ray from the pointer is marched down from 3.2 cells; things whose
+  3D height the ray passes through are put first, nearest the camera first.
+- Ghosts for every cell of a build drag (DesignationDragger.DragCells).
+- Fog: each fog sheet's corners are moved onto the top of the rock/walls/buildings under them, redone
+  every 40 frames; put back flat when the 3D view is off. (View3D.FogMatrix is no longer used.)
+- Setting itemThickness scales item extrusion; 0 lays items flat.
+
+FLOATING ICONS
+--------------
+- DrawHook.billboard: while a scope is open, each mesh drawn is stood upright at its own centre,
+  facing the camera, and raised by billboardHeight. Used for OverlayDrawer status icons (raised to
+  the thing's pick height + 0.3), speech/thought bubbles and overhead motes (1.45 cells), and
+  designation icons (Verse.Designation is added to the redirected types). DrawBatch.DrawMesh gets
+  the same transform, for icons the game draws in batches.
+
+RIMWORLD 1.5 AND 1.6
+--------------------
+- One source tree, built twice: build.bat runs `dotnet build -p:RimWorldVersion=1.6` and `=1.5`,
+  writing 1.6/Assemblies and 1.5/Assemblies. About/LoadFolders.xml loads the shared top level plus
+  the matching version folder. The symbol RW16 is defined for 1.6 builds, for any code that has
+  to differ (#if RW16). There must be no Assemblies folder at the top level.
+- Uncertain game APIs are looked up by name with reflection and skipped with a dev-mode warning
+  when missing, so a renamed method switches that feature off instead of breaking the mod.

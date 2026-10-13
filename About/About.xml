@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>IsoRim</name>
+  <author>Connor</author>
+  <packageId>connor.isorim</packageId>
+  <supportedVersions>
+    <li>1.5</li>
+    <li>1.6</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+  </loadAfter>
+  <description>IsoRim turns your colony into a 3D world, seen through an isometric camera that swings smoothly round your base in 45 degree steps.
+
+[b]A 3D colony[/b]
+- Walls are solid textured blocks, and natural rock becomes broken cliffs.
+- Every buildable thing in the base game has a hand-made 3D model: furniture, work benches, power, security, the ship and more. Turret guns turn to aim.
+- Items, weapons and clothing are made solid from their own RimWorld art, so they look just like the game. Trees, grass, crops, animals and colonists are 3D models, colonists wear proper flak, plate, marine and recon armour, and the wrecks and junk scattered over the map are modelled too.
+- Sloped, textured roofs (slate, terracotta, thatch or tin) at the press of a button.
+
+[b]A living world[/b]
+- The sun rises in the east and sets in the west, lighting the colony as it goes.
+- Calm, smooth water with drifting ripples, and rivers that flow.
+- Campfires flicker and smoke, geysers steam, wind turbines spin, and colonists chop, mine, hammer, scythe, hoe and sweep with real tools.
+- The sun moves smoothly across the sky through the day, blueprints show a see-through ghost of the finished build, and damaged buildings show scratches and cracks.
+- Colour looks: warm, cool, filmic, bleak, noir and more.
+
+[b]See what matters[/b]
+- Walls lower, trees thin out and roofs lift near the pointer, and optionally near your colonists.
+
+[b]Controls[/b]
+0 (or the cube button in the bottom right corner): 3D view on and off. 9: isometric or straight-on. Q and E: turn the camera. [ and ]: camera angle. The house button shows roofs. Everything can be rebound and set up in Options > Mod settings > IsoRim.
+
+Visual only: safe to add to or remove from an existing save. Requires Harmony.</description>
+</ModMetaData>

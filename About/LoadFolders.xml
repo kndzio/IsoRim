@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shared content (Defs, Models, Textures, LUTs, Shaders) is at the top; each game version
+     loads its own build of the code from 1.5/Assemblies or 1.6/Assemblies. -->
+<loadFolders>
+  <v1.5>
+    <li>/</li>
+    <li>1.5</li>
+  </v1.5>
+  <v1.6>
+    <li>/</li>
+    <li>1.6</li>
+  </v1.6>
+</loadFolders>

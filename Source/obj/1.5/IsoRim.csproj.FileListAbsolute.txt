@@ -1,0 +1,7 @@
+D:\Games\Rimworld 1.5\Mods\IsoRim\1.5\Assemblies\IsoRim.dll
+D:\Games\Rimworld 1.5\Mods\IsoRim\Source\obj\1.5\IsoRim.csproj.AssemblyReference.cache
+D:\Games\Rimworld 1.5\Mods\IsoRim\Source\obj\1.5\IsoRim.GeneratedMSBuildEditorConfig.editorconfig
+D:\Games\Rimworld 1.5\Mods\IsoRim\Source\obj\1.5\IsoRim.AssemblyInfoInputs.cache
+D:\Games\Rimworld 1.5\Mods\IsoRim\Source\obj\1.5\IsoRim.AssemblyInfo.cs
+D:\Games\Rimworld 1.5\Mods\IsoRim\Source\obj\1.5\IsoRim.csproj.CoreCompileInputs.cache
+D:\Games\Rimworld 1.5\Mods\IsoRim\Source\obj\1.5\IsoRim.dll

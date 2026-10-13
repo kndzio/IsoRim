@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <KeyBindingCategoryDef>
+    <defName>IsoRim</defName>
+    <label>IsoRim</label>
+    <description>Keys for the 3D view.</description>
+  </KeyBindingCategoryDef>
+
+  <KeyBindingDef>
+    <defName>R3D_ToggleView</defName>
+    <label>toggle 3D view</label>
+    <category>IsoRim</category>
+    <defaultKeyCodeA>Alpha0</defaultKeyCodeA>
+  </KeyBindingDef>
+
+  <KeyBindingDef>
+    <defName>R3D_Isometric</defName>
+    <label>isometric view on/off</label>
+    <category>IsoRim</category>
+    <defaultKeyCodeA>Alpha9</defaultKeyCodeA>
+  </KeyBindingDef>
+
+  <KeyBindingDef>
+    <defName>R3D_TurnLeft</defName>
+    <label>turn the view left</label>
+    <category>IsoRim</category>
+    <defaultKeyCodeA>Q</defaultKeyCodeA>
+  </KeyBindingDef>
+
+  <KeyBindingDef>
+    <defName>R3D_TurnRight</defName>
+    <label>turn the view right</label>
+    <category>IsoRim</category>
+    <defaultKeyCodeA>E</defaultKeyCodeA>
+  </KeyBindingDef>
+
+  <KeyBindingDef>
+    <defName>R3D_TiltUp</defName>
+    <label>camera angle: more top-down</label>
+    <category>IsoRim</category>
+    <defaultKeyCodeA>RightBracket</defaultKeyCodeA>
+  </KeyBindingDef>
+
+  <KeyBindingDef>
+    <defName>R3D_TiltDown</defName>
+    <label>camera angle: lower</label>
+    <category>IsoRim</category>
+    <defaultKeyCodeA>LeftBracket</defaultKeyCodeA>
+  </KeyBindingDef>
+
+  <KeyBindingDef>
+    <defName>R3D_ToggleRoofs</defName>
+    <label>show roofs on/off</label>
+    <category>IsoRim</category>
+  </KeyBindingDef>
+
+</Defs>
